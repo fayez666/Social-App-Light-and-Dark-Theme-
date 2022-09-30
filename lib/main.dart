@@ -20,7 +20,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
+ print("testing ");
   uId  =CacheHelper.getData(key: 'uId');
   Widget widget;
 
