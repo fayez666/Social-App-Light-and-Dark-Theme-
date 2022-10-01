@@ -7,13 +7,12 @@ ThemeData lightThemeData(BuildContext context) {
   return ThemeData.light().copyWith(
     primaryColor: kPrimaryColor,
     scaffoldBackgroundColor: Colors.white,
-    appBarTheme: appBarDarkTheme,
+    appBarTheme: appBarTheme,
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
-    backgroundColor: Colors.white,
-      selectedItemColor: kContentColorLightTheme.withOpacity(0.7),
-      unselectedItemColor: kContentColorLightTheme.withOpacity(0.32),
-      selectedIconTheme: const IconThemeData(color: kPrimaryColor)
-    ),
+        backgroundColor: Colors.white,
+        selectedItemColor: kContentColorLightTheme.withOpacity(0.7),
+        unselectedItemColor: kContentColorLightTheme.withOpacity(0.32),
+        selectedIconTheme: const IconThemeData(color: kPrimaryColor)),
     iconTheme: const IconThemeData(color: kContentColorLightTheme),
     textTheme: GoogleFonts.interTextTheme(Theme.of(context).textTheme)
         .apply(bodyColor: kContentColorLightTheme),
@@ -29,13 +28,12 @@ ThemeData darkThemeData(BuildContext context) {
   return ThemeData.dark().copyWith(
     primaryColor: kPrimaryColor,
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
-    backgroundColor: kContentColorLightTheme,
-      selectedItemColor: Colors.white70,
+        backgroundColor: kContentColorLightTheme,
+        selectedItemColor: Colors.white70,
         selectedIconTheme: const IconThemeData(color: kPrimaryColor),
-        unselectedItemColor: kContentColorDarkTheme.withOpacity(0.32)
-    ),
+        unselectedItemColor: kContentColorDarkTheme.withOpacity(0.32)),
     scaffoldBackgroundColor: kContentColorLightTheme,
-    appBarTheme:appBarLightTheme,
+    appBarTheme: appBarTheme,
     iconTheme: const IconThemeData(color: kContentColorDarkTheme),
     textTheme: GoogleFonts.interTextTheme(Theme.of(context).textTheme)
         .apply(bodyColor: kContentColorDarkTheme),
@@ -47,21 +45,5 @@ ThemeData darkThemeData(BuildContext context) {
   );
 }
 
- AppBarTheme appBarLightTheme = AppBarTheme(
-    centerTitle: false,
-    elevation: 0,
-  color: kContentColorLightTheme,
-    titleTextStyle: GoogleFonts.cookie(
-        fontSize: 36
-    )
-);
-
-AppBarTheme appBarDarkTheme = AppBarTheme(
-    centerTitle: false,
-    elevation: 0,
-    color: kContentColorDarkTheme,
-  titleTextStyle: GoogleFonts.cookie(
-    color: Colors.black,
-    fontSize: 36
-  )
-);
+const appBarTheme = AppBarTheme(
+    centerTitle: false, elevation: 0, color: kPrimaryColor);

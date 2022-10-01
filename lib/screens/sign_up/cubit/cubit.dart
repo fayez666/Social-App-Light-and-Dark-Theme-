@@ -22,7 +22,7 @@ class SocialRegisterCubit extends Cubit<SocialRegisterStates> {
           .createUserWithEmailAndPassword(email: email, password: password);
 
       await userCreate(
-        phone: phone,
+          phone: phone,
           name: name,
           email: email,
           uId: userCredential.user?.uid ?? "uid");
@@ -41,14 +41,17 @@ class SocialRegisterCubit extends Cubit<SocialRegisterStates> {
     required String name,
     required String phone,
   }) async {
-    UserModel model =
-        UserModel(
-            email: email,
-            uId: uId,
-            phone: phone,
-            name: name,
-            isEmailVerified: false,
-        );
+    UserModel model = UserModel(
+      email: email,
+      uId: uId,
+      phone: phone,
+      name: name,
+      bio: "Write your bio here ...",
+      cover: "assets/images/Video Place Here.png",
+      image:
+          "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
+      isEmailVerified: false,
+    );
     await FirebaseFirestore.instance
         .collection('users')
         .doc(uId)
@@ -59,10 +62,8 @@ class SocialRegisterCubit extends Cubit<SocialRegisterStates> {
     required String name,
     required String phone,
     required String uId,
-
   }) async {
-    UserModel model =
-    UserModel(name: name,phone: phone);
+    UserModel model = UserModel(name: name, phone: phone);
     await FirebaseFirestore.instance
         .collection('users')
         .doc(uId)
