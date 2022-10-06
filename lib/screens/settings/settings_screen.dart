@@ -1,8 +1,12 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:social_app/screens/edit_profile/edit_profile_screen.dart';
 import 'package:social_app/shared/cubit/cubit.dart';
 import 'package:social_app/shared/cubit/states.dart';
 import '../../shared/styles/icon_broken.dart';
+import 'components/number_items.dart';
 import 'components/profile_cover.dart';
 import 'components/profile_picture.dart';
 
@@ -16,6 +20,9 @@ class SettingsScreen extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         var userModel = SocialCubit.get(context).model;
+        var profileImage = SocialCubit.get(context).profileImage;
+        var coverImage = SocialCubit.get(context).coverImage;
+        print(userModel);
         return Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
@@ -27,8 +34,10 @@ class SettingsScreen extends StatelessWidget {
                   children: [
                     ProfileCover(
                       model: userModel!,
+                      coverImage: coverImage,
                     ),
                     ProfilePicture(
+                      profileImage: profileImage,
                       model: userModel,
                     ),
                   ],
@@ -46,91 +55,32 @@ class SettingsScreen extends StatelessWidget {
               ),
               Text(
                 "${userModel.bio}",
-                style: Theme.of(context).textTheme.caption,
+                style: Theme.of(context).textTheme.caption?.copyWith(
+                    color: Theme.of(context)
+                        .textTheme
+                        .bodyText1!
+                        .color!
+                        .withOpacity(0.8)),
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 20.0),
                 child: Row(
-                  children: [
-                    Expanded(
-                      child: InkWell(
-                        onTap: () {},
-                        child: Column(
-                          children: [
-                            Text(
-                              "100",
-                              style: Theme.of(context).textTheme.subtitle2,
-                            ),
-                            const SizedBox(
-                              height: 5,
-                            ),
-                            Text(
-                              "Posts",
-                              style: Theme.of(context).textTheme.caption,
-                            ),
-                          ],
-                        ),
-                      ),
+                  children: const [
+                    NumberItems(
+                      number: 100,
+                      text: "Posts",
                     ),
-                    Expanded(
-                      child: InkWell(
-                        onTap: () {},
-                        child: Column(
-                          children: [
-                            Text(
-                              "265",
-                              style: Theme.of(context).textTheme.subtitle2,
-                            ),
-                            const SizedBox(
-                              height: 5,
-                            ),
-                            Text(
-                              "Photos",
-                              style: Theme.of(context).textTheme.caption,
-                            ),
-                          ],
-                        ),
-                      ),
+                    NumberItems(
+                      number: 43,
+                      text: "Photos",
                     ),
-                    Expanded(
-                      child: InkWell(
-                        onTap: () {},
-                        child: Column(
-                          children: [
-                            Text(
-                              "10k",
-                              style: Theme.of(context).textTheme.subtitle2,
-                            ),
-                            const SizedBox(
-                              height: 5,
-                            ),
-                            Text(
-                              "Followers",
-                              style: Theme.of(context).textTheme.caption,
-                            ),
-                          ],
-                        ),
-                      ),
+                    NumberItems(
+                      number: 256,
+                      text: "Followers",
                     ),
-                    Expanded(
-                      child: InkWell(
-                        onTap: () {},
-                        child: Column(
-                          children: [
-                            Text(
-                              "86",
-                              style: Theme.of(context).textTheme.subtitle2,
-                            ),
-                            const SizedBox(
-                              height: 5,
-                            ),
-                            Text(
-                              "Followings",
-                              style: Theme.of(context).textTheme.caption,
-                            ),
-                          ],
-                        ),
-                      ),
+                    NumberItems(
+                      number: 86,
+                      text: "Followings",
                     ),
                   ],
                 ),
@@ -147,7 +97,9 @@ class SettingsScreen extends StatelessWidget {
                     width: 10,
                   ),
                   OutlinedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamed(context, EditProfileScreen.routeName);
+                    },
                     child: const Icon(
                       IconBroken.Edit,
                     ),
@@ -156,11 +108,11 @@ class SettingsScreen extends StatelessWidget {
                     width: 10,
                   ),
                   OutlinedButton(
-                    onPressed: () {},
-                    child: const Text("...",style: TextStyle(
-                      fontSize: 20
-                    ),)
-                  ),
+                      onPressed: () {},
+                      child: const Text(
+                        "...",
+                        style: TextStyle(fontSize: 20),
+                      )),
                 ],
               )
             ],

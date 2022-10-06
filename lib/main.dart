@@ -1,4 +1,3 @@
-import 'package:bloc/bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,7 +10,6 @@ import 'package:social_app/shared/routes.dart';
 import 'package:social_app/shared/styles/theme.dart';
 
 import 'firebase_options.dart';
-import 'shared/bloc_observer.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,7 +18,6 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
- print("testing ");
   uId  =CacheHelper.getData(key: 'uId');
   Widget widget;
 

@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:social_app/screens/complete_profile/complete_profile_screen.dart';
+import 'package:social_app/screens/edit_profile/edit_profile_screen.dart';
 import 'package:social_app/screens/feeds/feeds_screen.dart';
 import 'package:social_app/screens/home/home_screen.dart';
 import 'package:social_app/screens/post/new_post_screen.dart';
@@ -23,4 +24,5 @@ final Map<String,WidgetBuilder> routes = {
   UsersScreen.routeName :(context)=>const UsersScreen(),
   SettingsScreen.routeName :(context)=>const SettingsScreen(),
   NewPostScreen.routeName :(context)=>const NewPostScreen(),
+  EditProfileScreen.routeName :(context)=> EditProfileScreen(),
 };

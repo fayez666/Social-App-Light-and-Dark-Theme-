@@ -34,13 +34,14 @@ class SignUpForm extends StatelessWidget {
           SizedBox(height: getProportionateScreenHeight(40)),
           DefaultButton(
             text: "Continue",
-            press: () {
+            press: () async {
               if (_formKey.currentState!.validate()) {
-                SocialRegisterCubit.get(context).userRegister(
+                await SocialRegisterCubit.get(context).userRegister(
                   email: emailController!.text,
                   password: passwordController!.text,
                   phone: phoneController.text,
-                  name: nameController.text
+                  name: nameController.text,
+                  context: context,
                 );
                 Navigator.pushNamed(context, HomeScreen.routeName);
               }

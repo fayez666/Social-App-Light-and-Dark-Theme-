@@ -23,18 +23,21 @@ class Body extends StatelessWidget {
               ),
               Text(
                 "Register Account",
-                style: headingStyle,
+                style: TextStyle(
+                  fontSize: getProportionateScreenWidth(28),
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               const Text(
                 "Complete your details or continue \n with social media",
                 textAlign: TextAlign.center,
               ),
               SizedBox(
-                height: SizeConfig.screenHeight * 0.07,
+                height: SizeConfig.screenHeight * 0.04,
               ),
               SignUpForm(),
               SizedBox(
-                height: SizeConfig.screenHeight * 0.07,
+                height: SizeConfig.screenHeight * 0.04,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -57,7 +60,13 @@ class Body extends StatelessWidget {
               Text(
                 'By continuing your confirm that you agree \nwith our Term and Condition',
                 textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.caption,
+                style: Theme.of(context).textTheme.caption?.copyWith(
+                  color: Theme.of(context)
+                    .textTheme
+                    .bodyText1!
+                    .color!
+                    .withOpacity(0.8)
+                ),
               )
             ],
           ),

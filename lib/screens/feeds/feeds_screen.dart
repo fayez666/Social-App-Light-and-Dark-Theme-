@@ -311,10 +311,12 @@ class PostItemCard extends StatelessWidget {
                       const SizedBox(
                         width: 8,
                       ),
-                      InkWell(
-                        onTap: (){},
-                        child: const Text(
-                          "write a comment ...",
+                      Expanded(
+                        child: InkWell(
+                          onTap: (){},
+                          child: const Text(
+                            "write a comment ...",
+                          ),
                         ),
                       ),
                     ],

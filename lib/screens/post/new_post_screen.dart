@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../shared/styles/icon_broken.dart';
 
 class NewPostScreen extends StatelessWidget {
   const NewPostScreen({Key? key}) : super(key: key);
@@ -8,10 +9,18 @@ class NewPostScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const  Text(
-          "Add Post"
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: const Icon(
+              IconBroken.Arrow___Left_2
+          ),
         ),
-      ),
+        title: const Text(
+            "Add Post"
+        ),
+      )
     );
   }
 }

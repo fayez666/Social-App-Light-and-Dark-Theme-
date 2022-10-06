@@ -1,6 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:social_app/screens/post/new_post_screen.dart';
+import 'package:social_app/screens/sign_in/sign_in.dart';
+import 'package:social_app/shared/cache_helper.dart';
 import 'package:social_app/shared/cubit/cubit.dart';
 import 'package:social_app/shared/cubit/states.dart';
 import 'package:social_app/shared/styles/icon_broken.dart';
@@ -27,7 +30,13 @@ class HomeScreen extends StatelessWidget {
             ),
             actions: [
               IconButton(icon: const Icon(IconBroken.Notification), onPressed: () {  },),
-              IconButton(icon: const Icon(IconBroken.Search), onPressed: () {  },),
+              // IconButton(icon: const Icon(IconBroken.Search), onPressed: () {  },),
+              IconButton(icon: const Icon(Icons.logout), onPressed: () async {
+               await FirebaseAuth.instance.signOut();
+               await CacheHelper.clearCacheStorage();
+               Navigator.of(context).pushReplacementNamed(SignInScreen.routeName);
+              },),
+
             ],
           ),
           body: cubit.screens[cubit.currentIndex],

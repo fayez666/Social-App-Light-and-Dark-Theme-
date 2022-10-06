@@ -1,19 +1,24 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:social_app/models/user.dart';
 import 'package:social_app/screens/sign_up/cubit/states.dart';
+import 'package:social_app/shared/cache_helper.dart';
+import 'package:social_app/shared/constants.dart';
+import 'package:social_app/shared/cubit/cubit.dart';
 
 class SocialRegisterCubit extends Cubit<SocialRegisterStates> {
   SocialRegisterCubit() : super(SocialRegisterInitialState());
 
   static SocialRegisterCubit get(context) => BlocProvider.of(context);
 
-  void userRegister({
+  Future<void> userRegister({
     required String email,
     required String password,
     required String phone,
     required String name,
+    required BuildContext context,
   }) async {
     emit(SocialRegisterLoadingState());
 
@@ -27,6 +32,9 @@ class SocialRegisterCubit extends Cubit<SocialRegisterStates> {
           email: email,
           uId: userCredential.user?.uid ?? "uid");
 
+      uId = userCredential.user?.uid;
+      await CacheHelper.saveData(key: 'uId', value: uId);
+      await SocialCubit.get(context)..getUserData();
       emit(SocialCreateUserSuccessState());
     } catch (error) {
       print(" =============================== Error message");
