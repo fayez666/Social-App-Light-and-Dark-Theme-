@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (BuildContext context)=>SocialCubit()..getUserData(),
+      create: (BuildContext context)=>SocialCubit()..getUserData()..getPosts(),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Chat app',

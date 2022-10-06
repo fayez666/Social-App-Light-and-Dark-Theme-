@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:social_app/screens/sign_up/components/sign_up_form.dart';
 
 import '../../../components/social_card.dart';
-import '../../../shared/constants.dart';
 import '../../../shared/styles/size_config.dart';
 
 class Body extends StatelessWidget {

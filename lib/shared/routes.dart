@@ -23,6 +23,6 @@ final Map<String,WidgetBuilder> routes = {
   FeedsScreen.routeName :(context)=>const FeedsScreen(),
   UsersScreen.routeName :(context)=>const UsersScreen(),
   SettingsScreen.routeName :(context)=>const SettingsScreen(),
-  NewPostScreen.routeName :(context)=>const NewPostScreen(),
+  NewPostScreen.routeName :(context)=> NewPostScreen(),
   EditProfileScreen.routeName :(context)=> EditProfileScreen(),
 };

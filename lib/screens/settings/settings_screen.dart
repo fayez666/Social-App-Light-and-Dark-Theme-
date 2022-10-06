@@ -109,9 +109,8 @@ class SettingsScreen extends StatelessWidget {
                   ),
                   OutlinedButton(
                       onPressed: () {},
-                      child: const Text(
-                        "...",
-                        style: TextStyle(fontSize: 20),
+                      child: const Icon(
+                        Icons.more_horiz
                       )),
                 ],
               )
