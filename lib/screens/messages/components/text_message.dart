@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:social_app/models/message.dart';
+import 'package:social_app/shared/cubit/cubit.dart';
 
 import '../../../shared/constants.dart';
 import '../../../models/ChatMessage.dart';
 
 class TextMessage extends StatelessWidget {
   const TextMessage({
-    Key? key,
-    required this.message,
+    Key? key, required this.index, required this.model,
   }) : super(key: key);
-  final ChatMessage message;
+  final int index;
+  final MessageModel model;
 
   @override
   Widget build(BuildContext context) {
@@ -16,13 +18,13 @@ class TextMessage extends StatelessWidget {
         padding: const EdgeInsets.symmetric(
             horizontal: kDefaultPadding * 0.75, vertical: kDefaultPadding / 2),
         decoration: BoxDecoration(
-            color: kPrimaryColor.withOpacity(message.isSender! ? 1 : 0.1),
+            color: kPrimaryColor.withOpacity(SocialCubit.get(context).model?.uId == SocialCubit.get(context).messages[index].senderId ? 1 : 0.1),
             borderRadius: BorderRadius.circular(30)),
         child: Text(
-          message.text!,
+          model.text,
           style: TextStyle(
             fontSize: 16,
-              color: message.isSender!
+              color: SocialCubit.get(context).model?.uId == SocialCubit.get(context).messages[index].senderId
                   ? Colors.white
                   : Theme.of(context).textTheme.bodyText1!.color),
         ));

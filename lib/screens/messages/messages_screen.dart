@@ -1,3 +1,4 @@
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:social_app/models/user.dart';
@@ -9,28 +10,45 @@ import '../../shared/cubit/states.dart';
 
 class MessagesScreen extends StatelessWidget {
   const MessagesScreen({Key? key, required this.model}) : super(key: key);
- final UserModel model;
+  final UserModel model;
+
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<SocialCubit,SocialStates>(
-      listener: (context,state){},
-      builder: (context,state){
-        return Scaffold(
-          appBar: buildAppBar(context,model),
-          body:  Body(model: model,),
+    return Builder(
+      builder: (BuildContext context) {
+        SocialCubit.get(context).getMessages(receiverId: model.uId!);
+        return BlocConsumer<SocialCubit, SocialStates>(
+          listener: (context, state) {},
+          builder: (context, state) {
+            return ConditionalBuilder(
+                condition: SocialCubit.get(context).messages.isNotEmpty,
+                builder: (context) {
+                  return Scaffold(
+                    appBar: buildAppBar(context, model),
+                    body: Body(
+                      model: model,
+                    ),
+                  );
+                },
+                fallback: (context) => const Center(
+                      child: CircularProgressIndicator(),
+                    ));
+          },
         );
       },
     );
   }
 
-  AppBar buildAppBar(BuildContext context,UserModel model) {
+  AppBar buildAppBar(BuildContext context, UserModel model) {
     return AppBar(
       automaticallyImplyLeading: false,
       title: Row(
         children: [
-          IconButton(onPressed: (){
-            Navigator.pop(context);
-          }, icon: const Icon(Icons.arrow_back_ios_new_outlined)),
+          IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: const Icon(Icons.arrow_back_ios_new_outlined)),
           const SizedBox(
             width: kDefaultPadding,
           ),

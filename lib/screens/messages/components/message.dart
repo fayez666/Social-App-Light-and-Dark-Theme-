@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:social_app/models/message.dart';
 import 'package:social_app/screens/messages/components/text_message.dart';
+import 'package:social_app/shared/cubit/cubit.dart';
 
 import '../../../shared/constants.dart';
 import '../../../models/ChatMessage.dart';
@@ -8,50 +10,31 @@ import 'audio_message.dart';
 
 class Message extends StatelessWidget {
   const Message({
-    Key? key,
-    required this.message,
+    Key? key, required this.index, required this.model,
   }) : super(key: key);
-  final ChatMessage message;
+
+  final int index;
+  final MessageModel model;
 
   @override
   Widget build(BuildContext context) {
-    Widget messageContain(ChatMessage message) {
-      switch (message.messageType) {
-        case ChatMessageType.text:
-          return TextMessage(
-            message: message,
-          );
-        case ChatMessageType.audio:
-          return AudioMessage(
-            message: message,
-          );
-        case ChatMessageType.video:
-          return VideoMessage(
-            message: message,
-          );
-        default:
-          return const SizedBox();
-      }
-    }
-
+   
     return Padding(
       padding: const EdgeInsets.only(top: kDefaultPadding),
       child: Row(
         mainAxisAlignment:
-            message.isSender! ? MainAxisAlignment.end : MainAxisAlignment.start,
+            SocialCubit.get(context).model?.uId == SocialCubit.get(context).messages[index].senderId? MainAxisAlignment.end : MainAxisAlignment.start,
         children: [
-          if (!message.isSender!) ...[
-            const CircleAvatar(
+          if (SocialCubit.get(context).model?.uId == SocialCubit.get(context).messages[index].receiverId) ...[
+            CircleAvatar(
               radius: 12,
-              backgroundImage: AssetImage("assets/images/user_2.png"),
+              backgroundImage: NetworkImage(SocialCubit.get(context).model!.image!),
             ),
             const SizedBox(
               width: kDefaultPadding / 2,
             )
           ],
-          messageContain(message),
-          if (message.isSender!)
-            MessageStatusDot(status: message.messageStatus!)
+          TextMessage(model: model, index: index,),
         ],
       ),
     );

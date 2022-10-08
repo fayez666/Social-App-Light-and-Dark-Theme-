@@ -325,7 +325,7 @@ class SocialCubit extends Cubit<SocialStates> {
           "likes.${model!.uId!}": false,
           "likeCount": (postModel.likeCount! - 1),
         }).then((value) {
-          postModel!.likeCount = postModel.likeCount! - 1;
+          postModel.likeCount = postModel.likeCount! - 1;
           postModel.likes![model!.uId] = false;
         }).catchError((error) {
           print(error.toString());
@@ -357,7 +357,7 @@ class SocialCubit extends Cubit<SocialStates> {
         "likeCount": (postModel.likeCount! + 1),
       }).then((value) {
         postModel.likes![model!.uId] = true;
-        postModel!.likeCount = postModel.likeCount! + 1;
+        postModel.likeCount = postModel.likeCount! + 1;
       }).catchError((error) {
         print(error.toString());
       });
@@ -514,8 +514,10 @@ class SocialCubit extends Cubit<SocialStates> {
         .collection('chats')
         .doc(receiverId)
         .collection('messages')
+        .orderBy('dateTime')
         .snapshots()
         .listen((event) {
+          messages =[];
       event.docs.forEach((element) {
         messages.add(MessageModel.fromJson(element.data()));
       });

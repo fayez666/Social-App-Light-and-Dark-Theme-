@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:social_app/models/user.dart';
+import 'package:social_app/shared/cubit/cubit.dart';
 
 import '../../../shared/constants.dart';
 import '../../../models/ChatMessage.dart';
@@ -18,14 +19,16 @@ class Body extends StatelessWidget {
             child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
           child: ListView.builder(
-              itemCount: demeChatMessages.length,
+              itemCount: SocialCubit.get(context).messages.length,
               itemBuilder: (context, index) => Message(
-                    message: demeChatMessages[index],
+                    index: index,
+                    model: SocialCubit.get(context).messages[index],
                   )),
         )),
-        ChatInputField(model:  model,)
+        ChatInputField(
+          model: model,
+        )
       ],
     );
   }
 }
-
