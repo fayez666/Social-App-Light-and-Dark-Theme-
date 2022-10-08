@@ -1,69 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:social_app/screens/chats/components/body.dart';
+import 'package:social_app/shared/cubit/cubit.dart';
+import 'package:social_app/shared/cubit/states.dart';
 
 import '../../shared/constants.dart';
 
-class ChatsScreen extends StatefulWidget {
+class ChatsScreen extends StatelessWidget {
   const ChatsScreen({Key? key}) : super(key: key);
 
   @override
-  State<ChatsScreen> createState() => _ChatsScreenState();
-}
-
-class _ChatsScreenState extends State<ChatsScreen> {
-  int _selectedIndex = 1;
-  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: buildAppBar(context),
-      body: const Body(),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        backgroundColor: kPrimaryColor,
-        child: const Icon(
-          Icons.person_add_alt_1,
-          color: Colors.white,
-        ),
-      ),
-      bottomNavigationBar: buildBottomNavigationBar(),
-    );
-  }
-
-  BottomNavigationBar buildBottomNavigationBar() {
-    return BottomNavigationBar(
-      type: BottomNavigationBarType.fixed,
-      currentIndex: _selectedIndex,
-      onTap: (value){
-        setState(() {
-          _selectedIndex = value;
-        });
+    return BlocConsumer<SocialCubit, SocialStates>(
+      listener: (context, state) {},
+      builder: (context, state) {
+        return Scaffold(
+          body: const Body(
+          ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {},
+            backgroundColor: kPrimaryColor,
+            child: const Icon(
+              Icons.person_add_alt_1,
+              color: Colors.white,
+            ),
+          ),
+        );
       },
-      items: const [
-        BottomNavigationBarItem(
-            icon: Icon(
-              Icons.messenger,
-            ),
-            label: "Chats"),
-        BottomNavigationBarItem(
-            icon: Icon(Icons.people,), label: "People"),
-        BottomNavigationBarItem(
-            icon: Icon(Icons.call), label: "Calls"),
-        BottomNavigationBarItem(
-            icon: CircleAvatar(
-              radius: 14,
-              backgroundImage: AssetImage('assets/images/user_2.png'),
-            ),
-          label: "Profile"
-        )
-      ],
-    );
-  }
-
-  AppBar buildAppBar(context) {
-    return AppBar(
-      automaticallyImplyLeading: false,
-      title: const Text("Chats"),
-      actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.search))],
     );
   }
 }

@@ -1,42 +1,53 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:social_app/models/user.dart';
 import 'package:social_app/screens/messages/components/body.dart';
+import 'package:social_app/shared/cubit/cubit.dart';
 
 import '../../shared/constants.dart';
+import '../../shared/cubit/states.dart';
 
 class MessagesScreen extends StatelessWidget {
-  const MessagesScreen({Key? key}) : super(key: key);
-
+  const MessagesScreen({Key? key, required this.model}) : super(key: key);
+ final UserModel model;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: buildAppBar(),
-      body: const Body(),
+    return BlocConsumer<SocialCubit,SocialStates>(
+      listener: (context,state){},
+      builder: (context,state){
+        return Scaffold(
+          appBar: buildAppBar(context,model),
+          body:  Body(model: model,),
+        );
+      },
     );
   }
 
-  AppBar buildAppBar() {
+  AppBar buildAppBar(BuildContext context,UserModel model) {
     return AppBar(
       automaticallyImplyLeading: false,
       title: Row(
         children: [
-          const Icon(Icons.arrow_back_ios_new_outlined),
+          IconButton(onPressed: (){
+            Navigator.pop(context);
+          }, icon: const Icon(Icons.arrow_back_ios_new_outlined)),
           const SizedBox(
             width: kDefaultPadding,
           ),
-          const CircleAvatar(
-            backgroundImage: AssetImage("assets/images/user_2.png"),
+          CircleAvatar(
+            backgroundImage: NetworkImage(model.image!),
           ),
           const SizedBox(
             width: kDefaultPadding * 0.75,
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
+            children: [
               Text(
-                "Kristin Weston",
-                style: TextStyle(fontSize: 16),
+                "${model.name}",
+                style: const TextStyle(fontSize: 16),
               ),
-              Text("Active 3m ago", style: TextStyle(fontSize: 12))
+              const Text("Active 3m ago", style: TextStyle(fontSize: 12))
             ],
           )
         ],

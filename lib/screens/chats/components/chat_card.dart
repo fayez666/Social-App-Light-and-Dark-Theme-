@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:social_app/models/user.dart';
 
 import '../../../shared/constants.dart';
 import '../../../models/Chat.dart';
@@ -6,10 +7,10 @@ import '../../../models/Chat.dart';
 class ChatCard extends StatelessWidget {
   const ChatCard({
     Key? key,
-    required this.chat,
+    required this.model,
     required this.press,
   }) : super(key: key);
-  final Chat chat;
+  final UserModel model ;
   final VoidCallback press;
 
   @override
@@ -25,9 +26,9 @@ class ChatCard extends StatelessWidget {
               children: [
                 CircleAvatar(
                   radius: 24,
-                  backgroundImage: AssetImage(chat.image!),
+                  backgroundImage: NetworkImage(model.image!),
                 ),
-                if (chat.isActive!)
+                if (true)
                   Positioned(
                     right: 0,
                     bottom: 0,
@@ -51,17 +52,17 @@ class ChatCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        chat.name!,
+                        model.name!,
                         style: const TextStyle(
                             fontWeight: FontWeight.w500, fontSize: 16),
                       ),
                       const SizedBox(
                         height: 8,
                       ),
-                      Opacity(
+                      const Opacity(
                         opacity: 0.64,
                         child: Text(
-                          chat.lastMessage!,
+                          '',
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
@@ -69,7 +70,7 @@ class ChatCard extends StatelessWidget {
                     ],
                   ),
                 )),
-            Opacity(opacity: 0.64, child: Text(chat.time!))
+            const Opacity(opacity: 0.64, child: Text('3m ago'))
           ],
         ),
       ),

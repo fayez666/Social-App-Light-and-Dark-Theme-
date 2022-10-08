@@ -17,12 +17,13 @@ class FeedsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    return BlocConsumer<SocialCubit,SocialStates>(
-      listener: (context,state){},
-      builder: (context,state){
+    return BlocConsumer<SocialCubit, SocialStates>(
+      listener: (context, state) {},
+      builder: (context, state) {
         return ConditionalBuilder(
-          condition: SocialCubit.get(context).posts.length >0,
-          builder: (context)=>SingleChildScrollView(
+          condition: SocialCubit.get(context).posts.length > 0,
+          builder:
+              (context) => SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
             child: Column(
               children: [
@@ -52,20 +53,26 @@ class FeedsScreen extends StatelessWidget {
                 ListView.separated(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
-                  itemBuilder:(context,index)=> PostItemCard(model: SocialCubit.get(context).posts[index],),
+                  itemBuilder: (context, index) => PostItemCard(
+                    model: SocialCubit.get(context).posts[index],
+                    index: index,
+                  ),
                   itemCount: SocialCubit.get(context).posts.length,
-                  separatorBuilder: (context,index)=>const SizedBox(
+                  separatorBuilder: (context, index) => const SizedBox(
                     height: 8.0,
                   ),
                 ),
-                const SizedBox(height: 8.0,),
+                const SizedBox(
+                  height: 8.0,
+                ),
               ],
             ),
           ),
-          fallback: (context)=>const Center(child: CircularProgressIndicator(),),
+          fallback: (context) => const Center(
+            child: CircularProgressIndicator(),
+          ),
         );
       },
     );
   }
 }
-

@@ -1,24 +1,43 @@
 import 'package:flutter/material.dart';
 import 'package:social_app/models/post.dart';
+import 'package:social_app/screens/comments/comments_screen.dart';
+import 'package:social_app/shared/cubit/cubit.dart';
 
 import '../../../shared/constants.dart';
 import '../../../shared/styles/icon_broken.dart';
 import '../../../shared/styles/size_config.dart';
+import 'hash_tag.dart';
 
-class PostItemCard extends StatelessWidget {
+class PostItemCard extends StatefulWidget {
   const PostItemCard({
-    Key? key, required this.model,
+    Key? key,
+    required this.model,
+    required this.index,
   }) : super(key: key);
 
   final PostModel model;
+  final int index;
+
+  @override
+  State<PostItemCard> createState() => _PostItemCardState();
+}
+
+class _PostItemCardState extends State<PostItemCard> {
+  final TextEditingController _controller = TextEditingController();
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Card(
       clipBehavior: Clip.antiAliasWithSaveLayer,
       elevation: 10.0,
-      margin: EdgeInsets.symmetric(
-          horizontal: getProportionateScreenWidth(8.0)),
+      margin:
+          EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(8.0)),
       child: Padding(
         padding: const EdgeInsets.all(10.0),
         child: Column(
@@ -29,7 +48,7 @@ class PostItemCard extends StatelessWidget {
                 CircleAvatar(
                   radius: 25.0,
                   backgroundImage: NetworkImage(
-                    "${model.image}",
+                    "${widget.model.image}",
                   ),
                 ),
                 SizedBox(
@@ -37,33 +56,33 @@ class PostItemCard extends StatelessWidget {
                 ),
                 Expanded(
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
                       children: [
-                        Row(
-                          children: [
-                            Text(
-                              "${model.name}",
-                              style: const TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  height: 1.4),
-                            ),
-                            SizedBox(
-                              width: getProportionateScreenWidth(8.0),
-                            ),
-                            const Icon(
-                              Icons.check_circle,
-                              color: kPrimaryColor,
-                              size: 16,
-                            )
-                          ],
-                        ),
                         Text(
-                          "${model.dateTime}",
-                          style: const TextStyle(fontSize: 12, height: 1.4),
+                          "${widget.model.name}",
+                          style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              height: 1.4),
+                        ),
+                        SizedBox(
+                          width: getProportionateScreenWidth(8.0),
+                        ),
+                        const Icon(
+                          Icons.check_circle,
+                          color: kPrimaryColor,
+                          size: 16,
                         )
                       ],
-                    )),
+                    ),
+                    Text(
+                      "${widget.model.dateTime}",
+                      style: const TextStyle(fontSize: 12, height: 1.4),
+                    )
+                  ],
+                )),
                 SizedBox(
                   width: getProportionateScreenWidth(15),
                 ),
@@ -82,8 +101,7 @@ class PostItemCard extends StatelessWidget {
                 color: Colors.grey[300],
               ),
             ),
-            Text(
-                "${model.text}"),
+            Text("${widget.model.text}"),
             Padding(
               padding: const EdgeInsets.only(
                 bottom: 10,
@@ -91,103 +109,35 @@ class PostItemCard extends StatelessWidget {
               ),
               child: SizedBox(
                 width: double.infinity,
-                child: Wrap(children: [
-                  Padding(
-                    padding: const EdgeInsetsDirectional.only(
-                      end: 6.0,
-                    ),
-                    child: SizedBox(
-                      height: 20,
-                      child: MaterialButton(
-                          padding: EdgeInsets.zero,
-                          minWidth: 1,
-                          onPressed: () {},
-                          child: const Text(
-                            "#photoshop",
-                            style: TextStyle(color: kPrimaryColor),
-                          )),
-                    ),
+                child: Wrap(children: const [
+                  HashTag(
+                    text: 'software',
                   ),
-                  Padding(
-                    padding: const EdgeInsetsDirectional.only(
-                      end: 6.0,
-                    ),
-                    child: SizedBox(
-                      height: 20,
-                      child: MaterialButton(
-                          padding: EdgeInsets.zero,
-                          minWidth: 1,
-                          onPressed: () {},
-                          child: const Text(
-                            "#video",
-                            style: TextStyle(color: kPrimaryColor),
-                          )),
-                    ),
+                  HashTag(
+                    text: 'video',
                   ),
-                  Padding(
-                    padding: const EdgeInsetsDirectional.only(
-                      end: 6.0,
-                    ),
-                    child: SizedBox(
-                      height: 20,
-                      child: MaterialButton(
-                          padding: EdgeInsets.zero,
-                          minWidth: 1,
-                          onPressed: () {},
-                          child: const Text(
-                            "#software",
-                            style: TextStyle(color: kPrimaryColor),
-                          )),
-                    ),
+                  HashTag(
+                    text: 'photoshop',
                   ),
-                  Padding(
-                    padding: const EdgeInsetsDirectional.only(
-                      end: 6.0,
-                    ),
-                    child: SizedBox(
-                      height: 20,
-                      child: MaterialButton(
-                          padding: EdgeInsets.zero,
-                          minWidth: 1,
-                          onPressed: () {},
-                          child: const Text(
-                            "#photoshop",
-                            style: TextStyle(color: kPrimaryColor),
-                          )),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsetsDirectional.only(
-                      end: 8.0,
-                    ),
-                    child: SizedBox(
-                      height: 20,
-                      child: MaterialButton(
-                          padding: EdgeInsets.zero,
-                          minWidth: 1,
-                          onPressed: () {},
-                          child: const Text(
-                            "#photoshop",
-                            style: TextStyle(color: kPrimaryColor),
-                          )),
-                    ),
+                  HashTag(
+                    text: 'video',
                   ),
                 ]),
               ),
             ),
-            if(model.postImage != '')
-             Padding(
-              padding: const EdgeInsets.only(top :15),
-              child: Container(
-                height: 140,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(4.0),
-                    image: DecorationImage(
-                        image: NetworkImage("${model.postImage}"),
-                        fit: BoxFit.cover)),
+            if (widget.model.postImage != '')
+              Padding(
+                padding: const EdgeInsets.only(top: 15),
+                child: Container(
+                  height: 140,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(4.0),
+                      image: DecorationImage(
+                          image: NetworkImage("${widget.model.postImage}"),
+                          fit: BoxFit.cover)),
+                ),
               ),
-            ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 15),
               child: Row(
@@ -208,7 +158,8 @@ class PostItemCard extends StatelessWidget {
                           const SizedBox(
                             width: 5.0,
                           ),
-                          const Text("0")
+                          Text(
+                              "${SocialCubit.get(context).posts[widget.index].likeCount ?? 0} likes")
                         ],
                       ),
                     ),
@@ -220,7 +171,13 @@ class PostItemCard extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           InkWell(
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) =>
+                                    CommentDetailsScreen(postModel: widget.model),
+                              ));
+                              print("Chat Icon");
+                            },
                             child: const Icon(
                               IconBroken.Chat,
                               color: Colors.amber,
@@ -230,7 +187,7 @@ class PostItemCard extends StatelessWidget {
                           const SizedBox(
                             width: 5.0,
                           ),
-                          const Text("0 comments")
+                           Text("${SocialCubit.get(context).posts[widget.index].commentCount ?? "0"}  comments")
                         ],
                       ),
                     ),
@@ -254,45 +211,71 @@ class PostItemCard extends StatelessWidget {
                       CircleAvatar(
                         radius: 15.0,
                         backgroundImage: NetworkImage(
-                          "${model.image}",
+                          "${widget.model.image}",
                         ),
                       ),
                       const SizedBox(
                         width: 10,
                       ),
-                      const Icon(
-                        IconBroken.Send,
-                        color: Colors.green,
+                      IconButton(
+                        icon: const Icon(IconBroken.Send, color: Colors.green),
+                        onPressed: () async {
+                          await SocialCubit.get(context).commentPost(
+                            commentText: _controller.text,
+                            postModel: widget.model,
+                            // SocialCubit.get(context).postsId[widget.index]
+                          );
+                          _controller.clear();
+                        },
                       ),
                       const SizedBox(
                         width: 8,
                       ),
                       Expanded(
-                        child: InkWell(
-                          onTap: (){},
-                          child: const Text(
-                            "write a comment ...",
+                        child: TextFormField(
+                          decoration: const InputDecoration(
+                            hintText: "Write a comment.....",
+                            border: InputBorder.none,
                           ),
+                          controller: _controller,
                         ),
                       ),
+                      // Expanded(
+                      //   child: InkWell(
+                      //     onTap: () {
+                      //       // SocialCubit.get(context).commentPost(
+                      //       //   commentText: _controller.text,
+                      //       //     postId: widget.model.postId!,
+                      //       //     // SocialCubit.get(context).postsId[widget.index]
+                      //       // );
+                      //     },
+                      //     child: const Text(
+                      //       "write a comment ...",
+                      //     ),
+                      //   ),
+                      // ),
                     ],
                   ),
                 ),
-                Row(
-                  children: [
-                    InkWell(
-                      onTap: () {},
-                      child: const Icon(
+                InkWell(
+                  onTap: () {
+                    SocialCubit.get(context).likePost(
+                        postModel:
+                            SocialCubit.get(context).posts[widget.index]);
+                  },
+                  child: Row(
+                    children: const [
+                      Icon(
                         IconBroken.Heart,
                         color: Colors.red,
                         size: 20,
                       ),
-                    ),
-                    const SizedBox(
-                      width: 5.0,
-                    ),
-                    const Text("Like")
-                  ],
+                      SizedBox(
+                        width: 5.0,
+                      ),
+                      Text("Like")
+                    ],
+                  ),
                 ),
                 const SizedBox(
                   width: 15.0,

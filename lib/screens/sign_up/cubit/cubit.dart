@@ -55,7 +55,7 @@ class SocialRegisterCubit extends Cubit<SocialRegisterStates> {
       phone: phone,
       name: name,
       bio: "Write your bio here ...",
-      cover: "assets/images/Video Place Here.png",
+      cover: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
       image:
           "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
       isEmailVerified: false,

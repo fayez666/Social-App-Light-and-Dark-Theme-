@@ -43,7 +43,7 @@ class SignUpForm extends StatelessWidget {
                   name: nameController.text,
                   context: context,
                 );
-                Navigator.pushNamed(context, HomeScreen.routeName);
+                Navigator.pushNamedAndRemoveUntil(context, HomeScreen.routeName,(route)=>false);
               }
             },
           ),

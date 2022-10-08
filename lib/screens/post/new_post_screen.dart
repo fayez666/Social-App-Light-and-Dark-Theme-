@@ -32,10 +32,10 @@ class NewPostScreen extends StatelessWidget {
                     var now = DateTime.now();
                     if (SocialCubit.get(context).postImage == null) {
                       SocialCubit.get(context).createPost(
-                          dateTime: now.toString(), text: textController.text);
+                          dateTime: now.toString(), text: textController.text, context: context);
                     } else {
                       SocialCubit.get(context).uploadPostImage(
-                          dateTime: now.toString(), text: textController.text);
+                          dateTime: now.toString(), text: textController.text, context: context);
                     }
                   },
                   child: Text(

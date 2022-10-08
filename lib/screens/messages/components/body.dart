@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:social_app/models/user.dart';
 
 import '../../../shared/constants.dart';
 import '../../../models/ChatMessage.dart';
@@ -6,7 +7,8 @@ import 'chat_input_field.dart';
 import 'message.dart';
 
 class Body extends StatelessWidget {
-  const Body({Key? key}) : super(key: key);
+  const Body({Key? key, required this.model}) : super(key: key);
+  final UserModel model;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +23,7 @@ class Body extends StatelessWidget {
                     message: demeChatMessages[index],
                   )),
         )),
-        const ChatInputField()
+        ChatInputField(model:  model,)
       ],
     );
   }
